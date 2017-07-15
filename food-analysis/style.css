@@ -1,0 +1,83 @@
+.content-body div {
+    background-color: #ACFA58;
+
+}
+.content {
+    width: 99%;
+    padding: 0.5%;
+    font-family: Helvetica, Arial, serif;
+    font-size: 12px;
+}
+.row .btn {
+    font-size: 16px;
+    font-weight: bold;
+}
+header {
+    position: relative;
+    padding: 5px;
+    height: 130px;
+    width: 97%;
+    margin: 0.5%;
+    background-color: green;
+    text-align: center;
+    border: 1px solid yellow;
+    border-radius: 15px;
+}
+.head {
+    margin: auto;
+}
+.head img {
+    top: 5px;
+    position: relative;
+    float: left;
+    height: 120px;
+    border-radius: 15px;
+}
+.head h1 {
+    position: relative;
+    float: center;
+    font-style: italic;
+}
+
+
+.content-body {
+    position: relative;
+    margin: 0px 0 0 16px;
+    padding: 15px 5px 15px 5px;
+    right: 16px;
+    width: 100%;
+}
+
+.receta-form {
+    position: relative;
+    padding: 15px 5px 15px 5px;
+    float: left;
+    width: 48%;
+    border: 1px solid green;
+    border-radius: 15px;
+}
+
+.receta-analisis {
+    position: relative;
+    padding: 15px 5px 15px 5px;
+    float: left;
+    width: 49%;
+    border: 1px solid green;
+    border-radius: 15px;
+}
+
+.etiqueta {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.row {
+    position:relative;
+    float: left;
+    width: 100%;
+}
+
+.text {
+    width: 90%;
+}

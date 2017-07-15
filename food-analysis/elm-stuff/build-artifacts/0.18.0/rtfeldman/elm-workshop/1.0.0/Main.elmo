@@ -1,0 +1,1204 @@
+var _rtfeldman$elm_workshop$Main$getJsonReceta = function (model) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'{titulo:',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			model.titulo,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				',instrucciones:',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					model.instrucciones,
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						',cocina:',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							model.cocina,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								',ingredientes:',
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									model.ingredientes,
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										',resumen:',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											model.resumen,
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												',porciones:',
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													_elm_lang$core$Basics$toString(model.porciones),
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														',tiempo:',
+														A2(
+															_elm_lang$core$Basics_ops['++'],
+															_elm_lang$core$Basics$toString(model.tiempo),
+															'}'))))))))))))));
+};
+var _rtfeldman$elm_workshop$Main$urlReplace = function (string) {
+	return A4(
+		_elm_lang$core$Regex$replace,
+		_elm_lang$core$Regex$All,
+		_elm_lang$core$Regex$regex('\"'),
+		_elm_lang$core$Basics$always(''),
+		A4(
+			_elm_lang$core$Regex$replace,
+			_elm_lang$core$Regex$All,
+			_elm_lang$core$Regex$regex(' '),
+			_elm_lang$core$Basics$always('%20'),
+			string));
+};
+var _rtfeldman$elm_workshop$Main$getUrlAPI = function (model) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_rtfeldman$elm_workshop$Auth$url_api,
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'?app_id=',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_rtfeldman$elm_workshop$Auth$app_id,
+				A2(_elm_lang$core$Basics_ops['++'], '&app_key=', _rtfeldman$elm_workshop$Auth$app_key))));
+};
+var _rtfeldman$elm_workshop$Main$jsonMyEncoder = function (model) {
+	return _elm_lang$core$Json_Encode$object(
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'title',
+				_1: _elm_lang$core$Json_Encode$string(model.titulo)
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'prep',
+					_1: _elm_lang$core$Json_Encode$string(model.resumen)
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'yield',
+						_1: _elm_lang$core$Json_Encode$string(
+							_elm_lang$core$Basics$toString(model.porciones))
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'ingr',
+							_1: _elm_lang$core$Json_Encode$object(
+								{
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'ing1',
+										_1: _elm_lang$core$Json_Encode$string('1 apple')
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: 'ing2',
+											_1: _elm_lang$core$Json_Encode$string('1 onion')
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 'ing3',
+												_1: _elm_lang$core$Json_Encode$string('1 potato')
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: 'ing4',
+													_1: _elm_lang$core$Json_Encode$string('1 tomatoe')
+												},
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								})
+						},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
+var _rtfeldman$elm_workshop$Main$init = {
+	ctor: '_Tuple2',
+	_0: {
+		titulo: '',
+		ingredientes: '',
+		resumen: '',
+		porciones: 0,
+		tiempo: 0,
+		instrucciones: '',
+		cocina: '',
+		resultado: {uri: '', yeld: 0.0, calories: 0, totalWeight: 0.0},
+		error: ''
+	},
+	_1: _elm_lang$core$Platform_Cmd$none
+};
+var _rtfeldman$elm_workshop$Main$getListaIngredientes = function (ingredientes) {
+	return A2(_elm_lang$core$String$split, '\n', ingredientes);
+};
+var _rtfeldman$elm_workshop$Main$receta = function (model) {
+	return _elm_lang$core$Json_Encode$object(
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'titulo',
+				_1: _elm_lang$core$Json_Encode$string(model.titulo)
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'ingredientes',
+					_1: _elm_lang$core$Json_Encode$list(
+						{
+							ctor: '::',
+							_0: _elm_lang$core$Json_Encode$string('1 pera'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Json_Encode$string('1 cucharada de sal'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Json_Encode$string('1 cucharada de aceite de oliva'),
+									_1: {ctor: '[]'}
+								}
+							}
+						})
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'resumen',
+						_1: _elm_lang$core$Json_Encode$string(model.resumen)
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'porciones',
+							_1: _elm_lang$core$Json_Encode$int(model.porciones)
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'tiempo',
+								_1: _elm_lang$core$Json_Encode$int(model.tiempo)
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'instrucciones',
+									_1: _elm_lang$core$Json_Encode$string(model.instrucciones)
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'cocina',
+										_1: _elm_lang$core$Json_Encode$string(model.cocina)
+									},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+};
+var _rtfeldman$elm_workshop$Main$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {titulo: a, ingredientes: b, resumen: c, porciones: d, tiempo: e, instrucciones: f, cocina: g, resultado: h, error: i};
+	});
+var _rtfeldman$elm_workshop$Main$NutrienInfo = F3(
+	function (a, b, c) {
+		return {label: a, quantity: b, unit: c};
+	});
+var _rtfeldman$elm_workshop$Main$nutrienInfoDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'unit',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'quantity',
+		_elm_lang$core$Json_Decode$float,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'label',
+			_elm_lang$core$Json_Decode$string,
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_rtfeldman$elm_workshop$Main$NutrienInfo))));
+var _rtfeldman$elm_workshop$Main$SearchResult = F4(
+	function (a, b, c, d) {
+		return {uri: a, yeld: b, calories: c, totalWeight: d};
+	});
+var _rtfeldman$elm_workshop$Main$searchResultDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'totalWeight',
+	_elm_lang$core$Json_Decode$float,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'calories',
+		_elm_lang$core$Json_Decode$int,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'yield',
+			_elm_lang$core$Json_Decode$float,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'uri',
+				_elm_lang$core$Json_Decode$string,
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_rtfeldman$elm_workshop$Main$SearchResult)))));
+var _rtfeldman$elm_workshop$Main$totalNutrientsDecoder = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'totalNutrients',
+		_1: {ctor: '[]'}
+	},
+	_rtfeldman$elm_workshop$Main$searchResultDecoder);
+var _rtfeldman$elm_workshop$Main$responseDecoder = A2(
+	_elm_lang$core$Json_Decode$at,
+	{ctor: '[]'},
+	_rtfeldman$elm_workshop$Main$searchResultDecoder);
+var _rtfeldman$elm_workshop$Main$sendRequestAPI = F2(
+	function (model, urlAPI) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'POST',
+				expect: _elm_lang$http$Http$expectJson(_rtfeldman$elm_workshop$Main$responseDecoder),
+				headers: {ctor: '[]'},
+				url: A2(_elm_lang$core$Debug$log, 'URLRequest: ', urlAPI),
+				body: A3(
+					_elm_lang$core$Debug$log,
+					'recetaEncodeRequest : ',
+					_elm_lang$http$Http$jsonBody,
+					_rtfeldman$elm_workshop$Main$jsonMyEncoder(model)),
+				withCredentials: false,
+				timeout: _elm_lang$core$Maybe$Nothing
+			});
+	});
+var _rtfeldman$elm_workshop$Main$WheatFree = {ctor: 'WheatFree'};
+var _rtfeldman$elm_workshop$Main$GlutenFree = {ctor: 'GlutenFree'};
+var _rtfeldman$elm_workshop$Main$FatFree = {ctor: 'FatFree'};
+var _rtfeldman$elm_workshop$Main$SugarConscious = {ctor: 'SugarConscious'};
+var _rtfeldman$elm_workshop$Main$LowFatAbs = {ctor: 'LowFatAbs'};
+var _rtfeldman$elm_workshop$Main$LowSugar = {ctor: 'LowSugar'};
+var _rtfeldman$elm_workshop$Main$DairyFree = {ctor: 'DairyFree'};
+var _rtfeldman$elm_workshop$Main$Vegetarian = {ctor: 'Vegetarian'};
+var _rtfeldman$elm_workshop$Main$Vegan = {ctor: 'Vegan'};
+var _rtfeldman$elm_workshop$Main$LowSodium = {ctor: 'LowSodium'};
+var _rtfeldman$elm_workshop$Main$LowCarb = {ctor: 'LowCarb'};
+var _rtfeldman$elm_workshop$Main$LowFat = {ctor: 'LowFat'};
+var _rtfeldman$elm_workshop$Main$HighFiber = {ctor: 'HighFiber'};
+var _rtfeldman$elm_workshop$Main$HighProtein = {ctor: 'HighProtein'};
+var _rtfeldman$elm_workshop$Main$Balanced = {ctor: 'Balanced'};
+var _rtfeldman$elm_workshop$Main$ResponseAPI = function (a) {
+	return {ctor: 'ResponseAPI', _0: a};
+};
+var _rtfeldman$elm_workshop$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Send':
+				var urlAPI = _rtfeldman$elm_workshop$Main$urlReplace(
+					_rtfeldman$elm_workshop$Main$getUrlAPI(model));
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(
+						_elm_lang$http$Http$send,
+						_rtfeldman$elm_workshop$Main$ResponseAPI,
+						A2(_rtfeldman$elm_workshop$Main$sendRequestAPI, model, urlAPI))
+				};
+			case 'ResponseAPI':
+				if (_p0._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								resultado: A2(_elm_lang$core$Debug$log, 'Mensaje:', _p0._0._0)
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								error: A2(
+									_elm_lang$core$Debug$log,
+									'error',
+									_elm_lang$core$Basics$toString(_p0._0._0))
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'InputTitulo':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							titulo: A2(_elm_lang$core$Debug$log, 'titulo : ', _p0._0)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'InputIngredientes':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							ingredientes: A3(_elm_lang$core$Debug$log, 'ingredientes : ', _elm_lang$core$Basics$toString, _p0._0)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'InputResumen':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							resumen: A2(_elm_lang$core$Debug$log, 'resumen : ', _p0._0)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'IncrementarPorciones':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							porciones: A2(_elm_lang$core$Debug$log, 'porciones : ', model.porciones) + 1
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'DecrementarPorciones':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							porciones: A2(_elm_lang$core$Debug$log, 'porciones : ', model.porciones) - 1
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'DecrementarTiempo':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							tiempo: A2(_elm_lang$core$Debug$log, 'tiempo : ', model.tiempo) - 1
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'IncrementarTiempo':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							tiempo: A2(_elm_lang$core$Debug$log, 'tiempo : ', model.tiempo) + 1
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'InputInstrucciones':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							instrucciones: A2(_elm_lang$core$Debug$log, 'instrucciones : ', _p0._0)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							cocina: A2(_elm_lang$core$Debug$log, 'cocina : ', _p0._0)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _rtfeldman$elm_workshop$Main$InputCocina = function (a) {
+	return {ctor: 'InputCocina', _0: a};
+};
+var _rtfeldman$elm_workshop$Main$InputInstrucciones = function (a) {
+	return {ctor: 'InputInstrucciones', _0: a};
+};
+var _rtfeldman$elm_workshop$Main$IncrementarTiempo = {ctor: 'IncrementarTiempo'};
+var _rtfeldman$elm_workshop$Main$DecrementarTiempo = {ctor: 'DecrementarTiempo'};
+var _rtfeldman$elm_workshop$Main$DecrementarPorciones = {ctor: 'DecrementarPorciones'};
+var _rtfeldman$elm_workshop$Main$IncrementarPorciones = {ctor: 'IncrementarPorciones'};
+var _rtfeldman$elm_workshop$Main$InputResumen = function (a) {
+	return {ctor: 'InputResumen', _0: a};
+};
+var _rtfeldman$elm_workshop$Main$InputIngredientes = function (a) {
+	return {ctor: 'InputIngredientes', _0: a};
+};
+var _rtfeldman$elm_workshop$Main$InputTitulo = function (a) {
+	return {ctor: 'InputTitulo', _0: a};
+};
+var _rtfeldman$elm_workshop$Main$Send = {ctor: 'Send'};
+var _rtfeldman$elm_workshop$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('content'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$header,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('head'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$img,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$src('img/images.jpg'),
+									_1: {ctor: '[]'}
+								},
+								{ctor: '[]'}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$img,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$src('img/images1.jpg'),
+										_1: {ctor: '[]'}
+									},
+									{ctor: '[]'}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$h1,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Nutriologo en Elm'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('content-body'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('receta-form'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$h1,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Receta'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$div,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('row'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$label,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Titulo:'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$input,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('text'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Events$onInput(_rtfeldman$elm_workshop$Main$InputTitulo),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$placeholder('titulo...'),
+																_1: {ctor: '[]'}
+															}
+														}
+													},
+													{ctor: '[]'}),
+												_1: {ctor: '[]'}
+											}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('row'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$label,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Ingredientes'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$textarea,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('text'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$placeholder('Ingredientes...'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Events$onInput(_rtfeldman$elm_workshop$Main$InputIngredientes),
+																	_1: {ctor: '[]'}
+																}
+															}
+														},
+														{ctor: '[]'}),
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('row'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$label,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Resumen'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$textarea,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$class('text'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$placeholder('resumen...'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Events$onInput(_rtfeldman$elm_workshop$Main$InputResumen),
+																		_1: {ctor: '[]'}
+																	}
+																}
+															},
+															{ctor: '[]'}),
+														_1: {ctor: '[]'}
+													}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('row'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$label,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																_1: {ctor: '[]'}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('Porciones'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$button,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Events$onClick(_rtfeldman$elm_workshop$Main$DecrementarPorciones),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('-'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$div,
+																	{ctor: '[]'},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text(
+																			_elm_lang$core$Basics$toString(model.porciones)),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$button,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Events$onClick(_rtfeldman$elm_workshop$Main$IncrementarPorciones),
+																			_1: {ctor: '[]'}
+																		},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('+'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$div,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('row'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$label,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('Tiempo'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$button,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Events$onClick(_rtfeldman$elm_workshop$Main$DecrementarTiempo),
+																		_1: {ctor: '[]'}
+																	},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text('-'),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$div,
+																		{ctor: '[]'},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text(
+																				_elm_lang$core$Basics$toString(model.tiempo)),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$button,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Events$onClick(_rtfeldman$elm_workshop$Main$IncrementarTiempo),
+																				_1: {ctor: '[]'}
+																			},
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html$text('+'),
+																				_1: {ctor: '[]'}
+																			}),
+																		_1: {ctor: '[]'}
+																	}
+																}
+															}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$div,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$class('row'),
+																_1: {ctor: '[]'}
+															},
+															{
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$label,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																		_1: {ctor: '[]'}
+																	},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text('Instrucciones:'),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$textarea,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$class('text'),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$placeholder('instrucciones...'),
+																				_1: {
+																					ctor: '::',
+																					_0: _elm_lang$html$Html_Events$onInput(_rtfeldman$elm_workshop$Main$InputInstrucciones),
+																					_1: {ctor: '[]'}
+																				}
+																			}
+																		},
+																		{ctor: '[]'}),
+																	_1: {ctor: '[]'}
+																}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$div,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$class('row'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$label,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																			_1: {ctor: '[]'}
+																		},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('Tipo de cocina: '),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$input,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$class('text'),
+																				_1: {
+																					ctor: '::',
+																					_0: _elm_lang$html$Html_Events$onInput(_rtfeldman$elm_workshop$Main$InputCocina),
+																					_1: {
+																						ctor: '::',
+																						_0: _elm_lang$html$Html_Attributes$placeholder('cocina...'),
+																						_1: {ctor: '[]'}
+																					}
+																				}
+																			},
+																			{ctor: '[]'}),
+																		_1: {ctor: '[]'}
+																	}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$div,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Attributes$class('row'),
+																		_1: {ctor: '[]'}
+																	},
+																	{
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$button,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$class('btn'),
+																				_1: {
+																					ctor: '::',
+																					_0: _elm_lang$html$Html_Events$onClick(_rtfeldman$elm_workshop$Main$Send),
+																					_1: {ctor: '[]'}
+																				}
+																			},
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html$text('Enviar'),
+																				_1: {ctor: '[]'}
+																			}),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('receta-analisis'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$h1,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Resultados'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('row'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$label,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(model.error),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('row'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$label,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Rendimiento :'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$label,
+															{ctor: '[]'},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text(
+																	_elm_lang$core$Basics$toString(model.resultado.yeld)),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('row'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$label,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																_1: {ctor: '[]'}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('Calorias :'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$label,
+																{ctor: '[]'},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text(
+																		_elm_lang$core$Basics$toString(model.resultado.calories)),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {ctor: '[]'}
+														}
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$div,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('row'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$label,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('Peso Total :'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$label,
+																	{ctor: '[]'},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text(
+																			_elm_lang$core$Basics$toString(model.resultado.totalWeight)),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {ctor: '[]'}
+															}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$div,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$class('row'),
+																_1: {ctor: '[]'}
+															},
+															{
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$label,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																		_1: {ctor: '[]'}
+																	},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text('Etiqueta de la dieta :'),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {ctor: '[]'}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$div,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$class('row'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$label,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																			_1: {ctor: '[]'}
+																		},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('Nutrientes :'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$div,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Attributes$class('row'),
+																		_1: {ctor: '[]'}
+																	},
+																	{
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$label,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$class('etiqueta'),
+																				_1: {ctor: '[]'}
+																			},
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html$text('Etiqueta de salud :'),
+																				_1: {ctor: '[]'}
+																			}),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _rtfeldman$elm_workshop$Main$main = _elm_lang$html$Html$program(
+	{
+		view: _rtfeldman$elm_workshop$Main$view,
+		update: _rtfeldman$elm_workshop$Main$update,
+		init: _rtfeldman$elm_workshop$Main$init,
+		subscriptions: _elm_lang$core$Basics$always(_elm_lang$core$Platform_Sub$none)
+	})();
